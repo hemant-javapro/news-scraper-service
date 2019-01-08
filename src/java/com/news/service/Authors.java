@@ -15,70 +15,39 @@ import javax.ws.rs.core.Response;
  *
  * @author Hemant Sharma
  */
-@Path("/articles")
+@Path("/authors")
 public class Authors {
 
     /**
-     * Returns all articles
+     * Returns all the authors
      *
-     * @return List of articles in JSON format as response.
+     * @return List of authors in JSON format as response.
      */
     @GET
-    public Response getArticles() {
+    public Response getAuthors() {
         List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
-        return Response.status(200).entity(new Gson().toJson(articles)).build();
+        List<String> article = articles.stream()
+                .map(Article::getAuthor)
+                .collect(Collectors.toList());
+
+        return Response.status(200).entity(new Gson().toJson(article)).build();
     }
 
     /**
-     * Returns all the articles containing given author
+     * Returns all the authors containing given search text
      *
      * @param searchText a {@link java.lang.String}
-     * @return List of articles in JSON format as response.
+     * @return List of authors in JSON format as response.
      */
     @GET
-    @Path("/byauthor/{search-text}")
-    public Response getArticlesByAuthor(@PathParam("search-text") String searchText) {
+    @Path("/{search-text}")
+    public Response getAuthors(@PathParam("search-text") String searchText) {
         List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
-        List<Article> article = articles.stream()
+        List<String> article = articles.stream()
                 .filter(p -> p.getAuthor() != null && p.getAuthor().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))
-                .collect(Collectors.toList());
-
-        return Response.status(200).entity(new Gson().toJson(article)).build();
-    }
-
-    /**
-     * Returns all the articles containing given title
-     *
-     * @param searchText a {@link java.lang.String}
-     * @return List of articles in JSON format as response.
-     */
-    @GET
-    @Path("/bytitle/{search-text}")
-    public Response getArticlesByTitle(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
-
-        List<Article> article = articles.stream()
-                .filter(p -> p.getTitle() != null && p.getTitle().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))
-                .collect(Collectors.toList());
-
-        return Response.status(200).entity(new Gson().toJson(article)).build();
-    }
-
-    /**
-     * Returns all the articles containing given description
-     *
-     * @param searchText a {@link java.lang.String}
-     * @return List of articles in JSON format as response.
-     */
-    @GET
-    @Path("/bydescription/{search-text}")
-    public Response getArticlesByDescription(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
-
-        List<Article> article = articles.stream()
-                .filter(p -> p.getDescription() != null && p.getDescription().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))
+                .map(Article::getAuthor)
                 .collect(Collectors.toList());
 
         return Response.status(200).entity(new Gson().toJson(article)).build();
