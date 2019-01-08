@@ -26,6 +26,6 @@ Download the following jars and add them to your projects classpath.
 
 - Search articles by name: <b>/service/articles/byauthor/{search-text}</b>
 
-- Search articles by name: <b>/service/articles/bytitle/{search-text}</b>
+- Search articles by title: <b>/service/articles/bytitle/{search-text}</b>
 
-- Search articles by name: <b>/service/articles/bydescription/{search-text}</b>
+- Search articles by description: <b>/service/articles/bydescription/{search-text}</b>
