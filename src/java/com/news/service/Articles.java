@@ -2,7 +2,7 @@ package com.news.service;
 
 import com.google.gson.Gson;
 import com.news.scraper.Article;
-import com.news.scraper.ScrapSarter;
+import com.news.scraper.ScrapStarter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class Articles {
      */
     @GET
     public Response getAuthors() {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         List<String> article = articles.stream()
                 .map(Article::getAuthor)
@@ -43,7 +43,7 @@ public class Articles {
     @GET
     @Path("/{search-text}")
     public Response getAuthors(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         List<String> article = articles.stream()
                 .filter(p -> p.getAuthor() != null && p.getAuthor().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))

@@ -1,6 +1,6 @@
 package com.news.scraper;
 
-import static com.news.scraper.ScrapSarter.BASE_URL;
+import static com.news.scraper.ScrapStarter.BASE_URL;
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,11 +44,11 @@ public class ArticleFinder implements Runnable {
                 if (anchor.attr("abs:href").endsWith(".ece")) {
                     Thread thread = new Thread(new ArticleScraper(anchor.attr("abs:href")));
                     thread.start();
-                    ScrapSarter.THREADS.add(thread);
+                    ScrapStarter.THREADS.add(thread);
                 } else {
                     Thread thread = new Thread(new ArticleFinder(anchor.attr("abs:href")));
                     thread.start();
-                    ScrapSarter.THREADS.add(thread);
+                    ScrapStarter.THREADS.add(thread);
                 }
             });
 

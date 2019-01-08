@@ -2,7 +2,7 @@ package com.news.service;
 
 import com.google.gson.Gson;
 import com.news.scraper.Article;
-import com.news.scraper.ScrapSarter;
+import com.news.scraper.ScrapStarter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class Authors {
      */
     @GET
     public Response getArticles() {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         return Response.status(200).entity(new Gson().toJson(articles)).build();
     }
@@ -39,7 +39,7 @@ public class Authors {
     @GET
     @Path("/byauthor/{search-text}")
     public Response getArticlesByAuthor(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         List<Article> article = articles.stream()
                 .filter(p -> p.getAuthor() != null && p.getAuthor().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))
@@ -57,7 +57,7 @@ public class Authors {
     @GET
     @Path("/bytitle/{search-text}")
     public Response getArticlesByTitle(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         List<Article> article = articles.stream()
                 .filter(p -> p.getTitle() != null && p.getTitle().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))
@@ -75,7 +75,7 @@ public class Authors {
     @GET
     @Path("/bydescription/{search-text}")
     public Response getArticlesByDescription(@PathParam("search-text") String searchText) {
-        List<Article> articles = Arrays.asList(new ScrapSarter().getScrapedData());
+        List<Article> articles = Arrays.asList(new ScrapStarter().getScrapedData());
 
         List<Article> article = articles.stream()
                 .filter(p -> p.getDescription() != null && p.getDescription().toLowerCase().matches(".*" + searchText.toLowerCase() + ".*"))

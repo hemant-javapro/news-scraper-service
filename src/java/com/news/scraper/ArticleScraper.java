@@ -53,7 +53,7 @@ public class ArticleScraper implements Runnable {
                 }
             });
 
-            ScrapSarter.ARTICLES.add(page);
+            ScrapStarter.ARTICLES.add(page);
 
             System.out.println("> " + page.getTitle() + ":" + page.getAuthor() + ":" + page.getDescription());
 
